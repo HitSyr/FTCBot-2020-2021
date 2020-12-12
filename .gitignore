@@ -1,0 +1,6 @@
+# VSCode
+.vscode
+
+# Gradle
+.gradle/
+build/
