@@ -36,19 +36,16 @@ public class TestOpMode extends OpMode {
         conveyorBelt.setPower(0);
     }
 
-    /*
-     * Runs ONCE when the driver hits INIT
-     */
     @Override
     public void init() {
         telemetry.addData("Status", "Initializing...");
 
         // Motor setup
-        frontLeft    = hardwareMap.get(DcMotor.class, "front_left_motor");
-        frontRight   = hardwareMap.get(DcMotor.class, "front_right_motor");
-        backLeft     = hardwareMap.get(DcMotor.class, "back_left_motor");
-        backRight    = hardwareMap.get(DcMotor.class, "back_right_motor");
-        frontIntake  = hardwareMap.get(DcMotor.class, "front_intake_wheels");
+        frontLeft    = hardwareMap.get(DcMotor.class, "front_left");
+        frontRight   = hardwareMap.get(DcMotor.class, "front_right");
+        backLeft     = hardwareMap.get(DcMotor.class, "back_left");
+        backRight    = hardwareMap.get(DcMotor.class, "back_right");
+        frontIntake  = hardwareMap.get(DcMotor.class, "front_intake");
         conveyorBelt = hardwareMap.get(DcMotor.class, "conveyor_belt");
 
         // TODO: Set the directions of all of the motors.
@@ -59,24 +56,11 @@ public class TestOpMode extends OpMode {
         telemetry.addData("Status", "Initialized");
     }
 
-    /*
-     * Runs REPEATEDLY after the driver hits INIT, but before they hit PLAY.
-     */
-    @Override
-    public void init_loop() {
-    }
-
-    /*
-     * Runs ONCE when the driver hits PLAY.
-     */
     @Override
     public void start() {
         runtime.reset();
     }
 
-    /*
-     * Runs REPEATEDLY after the driver hits PLAY but before they hit STOP.
-     */
     @Override
     public void loop() {
         // FIXME: As of right now, this is set to basic tank drive for testing
@@ -105,6 +89,7 @@ public class TestOpMode extends OpMode {
 
         // FIXME: Remap these to something that makes more sense.
         //  Again, this is here for testing purposes only.
+        //  Also, this will run forever.
         if (gamepad1.x)
             frontIntake.setPower(0.5);
 
@@ -112,11 +97,9 @@ public class TestOpMode extends OpMode {
             conveyorBelt.setPower(0.5);
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
+        telemetry.addData("Power", "Left (%.2f) | Right (%.2f)", leftPower, rightPower);
     }
 
-    /*
-     * Runs ONCE after the driver hits STOP.
-     */
     @Override
     public void stop() {
         // Ensure the motors actually stop when the stop button is pressed.
