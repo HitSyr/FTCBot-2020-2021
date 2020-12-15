@@ -13,10 +13,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp(name="DT/Intake Test", group="Testing")
 public class TestOpMode extends OpMode {
 
-    private ElapsedTime runtime = new ElapsedTime();
+    private static final ElapsedTime runtime = new ElapsedTime();
 
-    // Declare the motors.
-    // NOTE: Have to declare them all as null because this will crash otherwise.
     private DcMotor frontLeft    = null;
     private DcMotor frontRight   = null;
     private DcMotor backLeft     = null;
@@ -24,34 +22,27 @@ public class TestOpMode extends OpMode {
     private DcMotor frontIntake  = null;
     private DcMotor conveyorBelt = null;
 
-    /*
-     * Stops all motors on the bot.
-     */
-    public void stopAllMotors() {
+    @Override
+    public void init() {
+        telemetry.addData("Status", "Initializing...");
+
+        frontLeft    = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight   = hardwareMap.get(DcMotor.class, "frontRight");
+        backLeft     = hardwareMap.get(DcMotor.class, "backLeft");
+        backRight    = hardwareMap.get(DcMotor.class, "backRight");
+        frontIntake  = hardwareMap.get(DcMotor.class, "frontIntake");
+        conveyorBelt = hardwareMap.get(DcMotor.class, "conveyorBelt");
+
+        // TODO: Set motor directions.
+        conveyorBelt.setDirection(DcMotor.Direction.REVERSE);
+
+        // Ensure that no motors move during the initialization stage.
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
         frontIntake.setPower(0);
         conveyorBelt.setPower(0);
-    }
-
-    @Override
-    public void init() {
-        telemetry.addData("Status", "Initializing...");
-
-        // Motor setup
-        frontLeft    = hardwareMap.get(DcMotor.class, "front_left");
-        frontRight   = hardwareMap.get(DcMotor.class, "front_right");
-        backLeft     = hardwareMap.get(DcMotor.class, "back_left");
-        backRight    = hardwareMap.get(DcMotor.class, "back_right");
-        frontIntake  = hardwareMap.get(DcMotor.class, "front_intake");
-        conveyorBelt = hardwareMap.get(DcMotor.class, "conveyor_belt");
-
-        // TODO: Set the directions of all of the motors.
-
-        // Ensure that none of our motors move during the initialization stage.
-        stopAllMotors();
 
         telemetry.addData("Status", "Initialized");
     }
@@ -66,49 +57,47 @@ public class TestOpMode extends OpMode {
         // FIXME: As of right now, this is set to basic tank drive for testing
         //  purposes, I do plan on replacing this with a better drive system.
 
-        double leftPower  = -gamepad1.left_stick_y;
-        double rightPower = -gamepad1.right_stick_y;
+        final double leftPower  = -gamepad1.left_stick_y;
+        final double rightPower = -gamepad1.right_stick_y;
 
         frontLeft.setPower(leftPower);
         backLeft.setPower(leftPower);
         frontRight.setPower(rightPower);
         backRight.setPower(rightPower);
 
-//        // WIP: Proper mechanum driving.
-//        // FIXME: Counteract imperfect strafing.
-//        //  This can be done via `leftHorizPos * a`.
-//        //  Also, optionally, we could try to preserve the ratios needed.
-//        double leftVertPos   = -gamepad1.left_stick_y;
-//        double leftHorizPos  = gamepad1.left_stick_x;
-//        double rightHorizPos = gamepad1.right_stick_x;
-//
-//        frontLeft.setPower(leftVertPos + leftHorizPos + rightHorizPos);
-//        backLeft.setPower(leftVertPos - leftHorizPos + rightHorizPos);
-//        frontRight.setPower(leftVertPos - leftHorizPos - rightHorizPos);
-//        backRight.setPower(leftVertPos + leftHorizPos - rightHorizPos);
+        // // WIP: Proper mechanum driving.
+        // // FIXME: Counteract imperfect strafing.
+        // //  This can be done via `leftHorizPos * a`.
+        // //  Also, optionally, we could try to preserve the ratios needed.
+        // final double leftVertPos   = -gamepad1.left_stick_y;
+        // final double leftHorizPos  = gamepad1.left_stick_x;
+        // final double rightHorizPos = gamepad1.right_stick_x;
+
+        // frontLeft.setPower(leftVertPos + leftHorizPos + rightHorizPos);
+        // backLeft.setPower(leftVertPos - leftHorizPos + rightHorizPos);
+        // frontRight.setPower(leftVertPos - leftHorizPos - rightHorizPos);
+        // backRight.setPower(leftVertPos + leftHorizPos - rightHorizPos);
 
         // FIXME: Remap these to something that makes more sense.
         //  Again, this is here for testing purposes only.
-        if (gamepad1.x)
-            frontIntake.setPower(0.5);
-        else
+        if (gamepad1.x) {
+            frontIntake.setPower(1);
+            conveyorBelt.setPower(1);
+        } else {
             frontIntake.setPower(0);
-
-        if (gamepad1.y)
-            conveyorBelt.setPower(0.5);
-        else
             conveyorBelt.setPower(0);
+        }
+
+        if (gamepad1.b) {
+            frontIntake.setPower(-1);
+            conveyorBelt.setPower(-1);
+        } else {
+            frontIntake.setPower(0);
+            conveyorBelt.setPower(0);
+        }
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
         telemetry.addData("Power", "Left (%.2f) | Right (%.2f)", leftPower, rightPower);
-    }
-
-    @Override
-    public void stop() {
-        // Ensure the motors actually stop when the stop button is pressed.
-        stopAllMotors();
-
-        telemetry.addData("Status", "Stopped");
     }
 
 }
