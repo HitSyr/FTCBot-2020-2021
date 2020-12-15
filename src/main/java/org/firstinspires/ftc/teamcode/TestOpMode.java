@@ -89,12 +89,15 @@ public class TestOpMode extends OpMode {
 
         // FIXME: Remap these to something that makes more sense.
         //  Again, this is here for testing purposes only.
-        //  Also, this will run forever.
         if (gamepad1.x)
             frontIntake.setPower(0.5);
+        else
+            frontIntake.setPower(0);
 
         if (gamepad1.y)
             conveyorBelt.setPower(0.5);
+        else
+            conveyorBelt.setPower(0);
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
         telemetry.addData("Power", "Left (%.2f) | Right (%.2f)", leftPower, rightPower);
