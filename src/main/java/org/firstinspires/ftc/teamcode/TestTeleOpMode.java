@@ -60,29 +60,18 @@ public class TestTeleOpMode extends OpMode {
 
     @Override
     public void loop() {
-        // FIXME: As of right now, this is set to basic tank drive for testing
-        //  purposes, I do plan on replacing this with a better drive system.
+        // WIP: Proper mechanum driving.
+        // FIXME: Counteract imperfect strafing.
+        //  This can be done via `leftHorizPos * a`.
+        //  Also, optionally, we could try to preserve the ratios needed.
+        final double leftVertPos   = -gamepad1.left_stick_y;
+        final double leftHorizPos  = gamepad1.left_stick_x;
+        final double rightHorizPos = gamepad1.right_stick_x;
 
-        final double leftPower  = -gamepad1.left_stick_y;
-        final double rightPower = -gamepad1.right_stick_y;
-
-        frontLeft.setPower(leftPower);
-        backLeft.setPower(leftPower);
-        frontRight.setPower(rightPower);
-        backRight.setPower(rightPower);
-
-        // // WIP: Proper mechanum driving.
-        // // FIXME: Counteract imperfect strafing.
-        // //  This can be done via `leftHorizPos * a`.
-        // //  Also, optionally, we could try to preserve the ratios needed.
-        // final double leftVertPos   = -gamepad1.left_stick_y;
-        // final double leftHorizPos  = gamepad1.left_stick_x;
-        // final double rightHorizPos = gamepad1.right_stick_x;
-
-        // frontLeft.setPower(leftVertPos + leftHorizPos + rightHorizPos);
-        // backLeft.setPower(leftVertPos - leftHorizPos + rightHorizPos);
-        // frontRight.setPower(leftVertPos - leftHorizPos - rightHorizPos);
-        // backRight.setPower(leftVertPos + leftHorizPos - rightHorizPos);
+        frontLeft.setPower(leftVertPos + leftHorizPos + rightHorizPos);
+        backLeft.setPower(leftVertPos - leftHorizPos + rightHorizPos);
+        frontRight.setPower(leftVertPos - leftHorizPos - rightHorizPos);
+        backRight.setPower(leftVertPos + leftHorizPos - rightHorizPos);
 
         // FIXME: Remap these to something that makes more sense.
         //  Again, this is here for testing purposes only.
