@@ -33,8 +33,9 @@ public class TestOpMode extends OpMode {
         frontIntake  = hardwareMap.get(DcMotor.class, "frontIntake");
         conveyorBelt = hardwareMap.get(DcMotor.class, "conveyorBelt");
 
-        // TODO: Set motor directions.
         conveyorBelt.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
 
         // Ensure that no motors move during the initialization stage.
         frontLeft.setPower(0);
