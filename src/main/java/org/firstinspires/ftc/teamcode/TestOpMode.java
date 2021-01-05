@@ -37,6 +37,11 @@ public class TestOpMode extends OpMode {
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
 
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // Ensure that no motors move during the initialization stage.
         frontLeft.setPower(0);
         frontRight.setPower(0);
