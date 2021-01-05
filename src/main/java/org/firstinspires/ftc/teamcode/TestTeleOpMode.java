@@ -89,7 +89,6 @@ public class TestTeleOpMode extends OpMode {
             intake.setPower(0);
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
-        telemetry.addData("Power", "Left (%.2f) | Right (%.2f)", leftPower, rightPower);
     }
 
 }
