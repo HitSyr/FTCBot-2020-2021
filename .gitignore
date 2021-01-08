@@ -1,4 +1,7 @@
 # VSCode
+.classpath
+.project
+.settings
 .vscode
 
 # Gradle
