@@ -35,7 +35,6 @@ public class TestOpMode extends OpMode {
         conveyorBelt  = hardwareMap.get(DcMotor.class, "conveyorBelt");
         revolvingDoor = hardwareMap.get(DcMotor.class, "revolvingDoor");
 
-        conveyorBelt.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
 
