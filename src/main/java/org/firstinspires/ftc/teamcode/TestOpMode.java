@@ -15,23 +15,25 @@ public class TestOpMode extends OpMode {
 
     private static final ElapsedTime runtime = new ElapsedTime();
 
-    private DcMotor frontLeft    = null;
-    private DcMotor frontRight   = null;
-    private DcMotor backLeft     = null;
-    private DcMotor backRight    = null;
-    private DcMotor frontIntake  = null;
-    private DcMotor conveyorBelt = null;
+    private DcMotor frontLeft     = null;
+    private DcMotor frontRight    = null;
+    private DcMotor backLeft      = null;
+    private DcMotor backRight     = null;
+    private DcMotor frontIntake   = null;
+    private DcMotor conveyorBelt  = null;
+    private DcMotor revolvingDoor = null;
 
     @Override
     public void init() {
         telemetry.addData("Status", "Initializing...");
 
-        frontLeft    = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight   = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft     = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight    = hardwareMap.get(DcMotor.class, "backRight");
-        frontIntake  = hardwareMap.get(DcMotor.class, "frontIntake");
-        conveyorBelt = hardwareMap.get(DcMotor.class, "conveyorBelt");
+        frontLeft     = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight    = hardwareMap.get(DcMotor.class, "frontRight");
+        backLeft      = hardwareMap.get(DcMotor.class, "backLeft");
+        backRight     = hardwareMap.get(DcMotor.class, "backRight");
+        frontIntake   = hardwareMap.get(DcMotor.class, "frontIntake");
+        conveyorBelt  = hardwareMap.get(DcMotor.class, "conveyorBelt");
+        revolvingDoor = hardwareMap.get(DcMotor.class, "revolvingDoor");
 
         conveyorBelt.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -41,6 +43,7 @@ public class TestOpMode extends OpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        revolvingDoor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Ensure that no motors move during the initialization stage.
         frontLeft.setPower(0);
@@ -49,6 +52,7 @@ public class TestOpMode extends OpMode {
         backRight.setPower(0);
         frontIntake.setPower(0);
         conveyorBelt.setPower(0);
+        revolvingDoor.setPower(0);
 
         telemetry.addData("Status", "Initialized");
     }
@@ -89,17 +93,21 @@ public class TestOpMode extends OpMode {
         if (gamepad2.x) {
             frontIntake.setPower(1);
             conveyorBelt.setPower(1);
+            revolvingDoor.setPower(0.5);
         } else {
             frontIntake.setPower(0);
             conveyorBelt.setPower(0);
+            revolvingDoor.setPower(0);
         }
 
         if (gamepad2.b) {
             frontIntake.setPower(-1);
             conveyorBelt.setPower(-1);
+            revolvingDoor.setPower(-0.5);
         } else {
             frontIntake.setPower(0);
             conveyorBelt.setPower(0);
+            revolvingDoor.setPower(0);
         }
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
