@@ -86,7 +86,7 @@ public class TestOpMode extends OpMode {
 
         // FIXME: Remap these to something that makes more sense.
         //  Again, this is here for testing purposes only.
-        if (gamepad1.x) {
+        if (gamepad2.x) {
             frontIntake.setPower(1);
             conveyorBelt.setPower(1);
         } else {
@@ -94,7 +94,7 @@ public class TestOpMode extends OpMode {
             conveyorBelt.setPower(0);
         }
 
-        if (gamepad1.b) {
+        if (gamepad2.b) {
             frontIntake.setPower(-1);
             conveyorBelt.setPower(-1);
         } else {
