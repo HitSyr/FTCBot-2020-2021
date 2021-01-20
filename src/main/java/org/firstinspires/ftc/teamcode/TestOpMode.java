@@ -102,11 +102,9 @@ public class TestOpMode extends OpMode {
         if (gamepad2.b) {
             frontIntake.setPower(-1);
             conveyorBelt.setPower(-1);
-            revolvingDoor.setPower(-0.5);
         } else {
             frontIntake.setPower(0);
             conveyorBelt.setPower(0);
-            revolvingDoor.setPower(0);
         }
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
