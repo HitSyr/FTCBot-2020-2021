@@ -20,7 +20,6 @@ public class TestOpMode extends OpMode {
     private DcMotor backLeft      = null;
     private DcMotor backRight     = null;
     private DcMotor frontIntake   = null;
-    private DcMotor conveyorBelt  = null;
     private DcMotor revolvingDoor = null;
 
     @Override
@@ -32,7 +31,6 @@ public class TestOpMode extends OpMode {
         backLeft      = hardwareMap.get(DcMotor.class, "backLeft");
         backRight     = hardwareMap.get(DcMotor.class, "backRight");
         frontIntake   = hardwareMap.get(DcMotor.class, "frontIntake");
-        conveyorBelt  = hardwareMap.get(DcMotor.class, "conveyorBelt");
         revolvingDoor = hardwareMap.get(DcMotor.class, "revolvingDoor");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -50,7 +48,6 @@ public class TestOpMode extends OpMode {
         backLeft.setPower(0);
         backRight.setPower(0);
         frontIntake.setPower(0);
-        conveyorBelt.setPower(0);
         revolvingDoor.setPower(0);
 
         telemetry.addData("Status", "Initialized");
@@ -91,21 +88,16 @@ public class TestOpMode extends OpMode {
         //  Again, this is here for testing purposes only.
         if (gamepad2.x) {
             frontIntake.setPower(1);
-            conveyorBelt.setPower(1);
             revolvingDoor.setPower(0.5);
         } else {
             frontIntake.setPower(0);
-            conveyorBelt.setPower(0);
             revolvingDoor.setPower(0);
         }
 
-        if (gamepad2.b) {
+        if (gamepad2.b)
             frontIntake.setPower(-1);
-            conveyorBelt.setPower(-1);
-        } else {
+        else
             frontIntake.setPower(0);
-            conveyorBelt.setPower(0);
-        }
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
         telemetry.addData("Power", "Left (%.2f) | Right (%.2f)", leftPower, rightPower);
