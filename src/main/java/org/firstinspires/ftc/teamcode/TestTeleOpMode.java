@@ -19,7 +19,7 @@ public class TestTeleOpMode extends OpMode {
     private DcMotor frontRight    = null;
     private DcMotor backLeft      = null;
     private DcMotor backRight     = null;
-    private DcMotor frontIntake   = null;
+    private DcMotor intake        = null;
     private DcMotor revolvingDoor = null;
 
     @Override
@@ -30,7 +30,7 @@ public class TestTeleOpMode extends OpMode {
         frontRight    = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft      = hardwareMap.get(DcMotor.class, "backLeft");
         backRight     = hardwareMap.get(DcMotor.class, "backRight");
-        frontIntake   = hardwareMap.get(DcMotor.class, "frontIntake");
+        intake        = hardwareMap.get(DcMotor.class, "intake");
         revolvingDoor = hardwareMap.get(DcMotor.class, "revolvingDoor");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -47,7 +47,7 @@ public class TestTeleOpMode extends OpMode {
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-        frontIntake.setPower(0);
+        intake.setPower(0);
         revolvingDoor.setPower(0);
 
         telemetry.addData("Status", "Initialized");
@@ -87,17 +87,17 @@ public class TestTeleOpMode extends OpMode {
         // FIXME: Remap these to something that makes more sense.
         //  Again, this is here for testing purposes only.
         if (gamepad2.x) {
-            frontIntake.setPower(1);
+            intake.setPower(1);
             revolvingDoor.setPower(0.5);
         } else {
-            frontIntake.setPower(0);
+            intake.setPower(0);
             revolvingDoor.setPower(0);
         }
 
         if (gamepad2.b)
-            frontIntake.setPower(-1);
+            intake.setPower(-1);
         else
-            frontIntake.setPower(0);
+            intake.setPower(0);
 
         telemetry.addData("Status", "Runtime: " + runtime.toString());
         telemetry.addData("Power", "Left (%.2f) | Right (%.2f)", leftPower, rightPower);
