@@ -26,12 +26,12 @@ public class TestTeleOpMode extends OpMode {
     public void init() {
         telemetry.addData("Status", "Initializing...");
 
-        frontLeft     = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight    = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft      = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight     = hardwareMap.get(DcMotor.class, "backRight");
-        intake        = hardwareMap.get(DcMotor.class, "intake");
-        revolvingDoor = hardwareMap.get(DcMotor.class, "revolvingDoor");
+        frontLeft     = hardwareMap.get(DcMotor.class, "Front Left");
+        frontRight    = hardwareMap.get(DcMotor.class, "Front Right");
+        backLeft      = hardwareMap.get(DcMotor.class, "Back Left");
+        backRight     = hardwareMap.get(DcMotor.class, "Back Right");
+        intake        = hardwareMap.get(DcMotor.class, "Intake");
+        revolvingDoor = hardwareMap.get(DcMotor.class, "Revolving Door");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
